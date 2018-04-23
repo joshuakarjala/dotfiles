@@ -1,0 +1,91 @@
+# some language stuff
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+export EDITOR="/usr/local/bin/nvim"
+
+# shortcut to this dotfiles path is $ZSIH
+export ZSH=$HOME/.dotfiles
+
+# neovim paths
+export XDG_CONFIG_HOME=$HOME/.config
+
+# your project folder that we can `c [tab]` to
+export PROJECTS=~/Code
+
+export GOPATH=$HOME/Code/go
+PATH=$PATH:$GOPATH/bin
+
+# Stash your environment variables in ~/.localrc. This means they'll stay out
+# of your main dotfiles repository (which may be public, like this one), but
+# you'll have access to them in your scripts.
+if [[ -a ~/.localrc ]]
+then
+  source ~/.localrc
+fi
+
+# all of our zsh files
+typeset -U config_files
+config_files=($ZSH/**/*.zsh)
+
+# load the path files
+for file in ${(M)config_files:#*/path.zsh}
+do
+  source $file
+done
+
+# # load everything but the path and completion files
+for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
+do
+  source $file
+done
+
+unset config_files
+
+# don't share history in different shells / panes
+setopt no_share_history
+
+# for tmux exiting when killing iterm2
+setopt HUP
+
+# emacs keybindings on osx
+bindkey -e
+
+# fn-backspace to delete
+bindkey "^[[3~" delete-char
+
+lazy_source () {
+  eval "$1 () { [ -f $2 ] && source $2 && $1 \$@ }"
+}
+
+# iterm2
+if [[ `uname` == 'Darwin' ]]; then
+  # source ~/.iterm2_shell_integration.zsh
+  source ~/.iterm2_shell_integration.`basename $SHELL`
+fi
+# end iterm2
+
+# nave
+unset ZDOTDIR
+export PATH=$NAVEPATH:$PATH
+[ -f ~/.naverc ] && . ~/.naverc || true
+# end nave
+
+export PATH="$HOME/.cargo/bin:$PATH"
+
+export PATH="$HOME/.yarn/bin:$PATH"
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/joshua/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/joshua/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/joshua/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/joshua/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source ~/.dotfiles/homebrew/homebrew_github_token.ignore

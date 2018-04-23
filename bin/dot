@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# dot
+#
+# `dot` handles installation, updates, things like that. Run it periodically
+# to make sure you're on the latest and greatest.
+export ZSH=$HOME/.dotfiles
+
+# Set OS X defaults
+$ZSH/osx/set-defaults.sh
+
+$ZSH/bin/start_dns_watch
+
+# Upgrade homebrew and other stuff
+brew update
+brew upgrade
+brew prune
+brew cleanup --force -s
+gem update
+gem clean
+yarn global upgrade
+vim +PlugUpgrade +PlugUpdate +PlugClean +qa
+
+# Install homebrew packages
+$ZSH/homebrew/install.sh 2>&1
+
+$ZSH/bin/stop_dns_watch

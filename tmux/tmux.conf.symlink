@@ -1,0 +1,79 @@
+  # vim: set ft=tmux.conf
+bind-key -n 'C-\' send-prefix
+
+# Bind A
+unbind-key C-b
+set -g prefix `
+bind-key ` send-prefix
+
+# enable mouse mode
+set -g mouse on
+
+set -g default-terminal "screen-256color"
+set -ga terminal-overrides 'xterm*:smcup@:rmcup@'
+set -g history-limit 30000
+
+set-option -sg escape-time 0
+
+bind-key r run-shell ' \
+      tmux source-file ~/.tmux.conf > /dev/null; \
+      tmux display-message "Sourced .tmux.conf!"'
+
+set-option -g destroy-unattached off
+
+# Copy-paste integration
+set -g default-shell $SHELL
+
+# Quickly switch between common used windows and panes
+bind -n S-Up last-window
+bind -n M-Left  select-pane -L
+bind -n M-Right  select-pane -R
+bind -n M-Up  select-pane -U
+bind -n M-Down  select-pane -D
+
+# Don't lose track of SSH_AGENT etc. from parent environment.
+set -g update-environment -r
+
+# start window numbers at 1 to match keyboard order with tmux window order
+set -g base-index 0
+# renumber windows sequentially after closing any of them
+set -g renumber-windows on
+
+# prefix highlight - when using prefix key and copy mode
+set -g @prefix_highlight_fg 'colour231' # default is 'colour231'
+set -g @prefix_highlight_bg 'colour213'  # default is 'colour04'
+set -g @prefix_highlight_show_copy_mode 'on'
+set -g @prefix_highlight_copy_mode_attr 'fg=black,bg=yellow,bold' # default is 'fg=default,bg=yellow'
+
+# status bar
+set -g status-position bottom
+set -g set-titles on
+set -g set-titles-string '#S:#I.#P #W'
+set -g status-justify left
+set -g status-bg default
+set -g status-fg white
+set -g status-attr bright
+set -g window-status-format ' #I: #W '
+set -g window-status-current-format ' #I: #W '
+set-window-option -g window-status-bg black
+set-window-option -g window-status-fg white
+set-window-option -g window-status-attr dim
+set-window-option -g window-status-current-bg colour207
+set-window-option -g window-status-current-fg white
+set-window-option -g window-status-current-attr bright
+set -g status-interval 5
+set -g status-left-length 90
+set -g status-right-length 60
+set -g status-left "#{prefix_highlight}#[fg=Cyan, bold]#(hostname -s)#[fg=white]::#[fg=yellow, bold]#(curl ipecho.net/plain;echo) "
+set -g status-justify left
+set -g status-right '#[fg=Cyan, bold]#S #[fg=colour135, bold]%d/%m/%y #[fg=Red, bold]%T #{battery_status_bg} #[fg=Black, bold]#{battery_percentage}(#{battery_remain}) '
+
+# Start new windows on current path
+bind c new-window -c "#{pane_current_path}"
+
+# Set the title bar
+set -g set-titles on
+set -g set-titles-string '#(whoami) :: #h :: #(curl ipecho.net/plain;echo) '
+
+# Always at bottom
+source ~/.tmux.plugins.conf

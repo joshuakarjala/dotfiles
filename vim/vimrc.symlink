@@ -1,0 +1,143 @@
+set nocompatible
+set clipboard=unnamed
+
+if has('mac')
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
+let g:plugins_file_path = "~/.vim/plugins.vim"
+if filereadable(expand(g:plugins_file_path))
+  exe ":source " . g:plugins_file_path
+endif
+
+syntax on
+filetype indent plugin on
+set modeline
+set nomodeline
+
+set lazyredraw
+set ttyfast
+
+" color stuff
+let g:solarized_termcolors=256
+let g:seoul256_background = 235
+
+set t_Co=256
+set background=dark
+colorscheme seoul256
+
+" setup backups and swap and undo files
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,/var/tmp,/tmp
+if exists("+undofile")
+  set undofile
+  set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+endif
+
+set history=1000
+set undolevels=1000
+
+set foldlevel=999 " folds come expanded
+
+
+"indenting
+set expandtab " spaces for tabs
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set autoindent
+
+autocmd FileType python setlocal ts=4 sw=4 expandtab
+autocmd FileType javascript setlocal ts=2 sw=2 expandtab
+
+"other
+" set mouse=nvi " enable mouse in normal mode
+set mouse=a
+set cursorline " highlight current line
+set hidden " allow buffers in background
+set number " line numbers
+set listchars=tab:»·,trail:· " invisible chars
+set list
+
+" remap tabs for visual indent
+vmap <tab> >
+vmap <s-tab> <
+
+" Indenting visual selection keeps selection
+vnoremap < <gv
+vnoremap > >gv
+
+" Multi-purpose tab-key
+" Insert tab if beginning of line or after space, else do completion
+function! InsertTabWrapper()
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<tab>"
+  else
+    return "\<c-p>"
+  endif
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-n>
+
+" ag for ack
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+  " Use ag in CtrlP
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
+" minimal silver search 'plugin'
+command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+nnoremap \ :Ag<SPACE>
+
+" toggle higlight search
+noremap <c-_> :set hlsearch!<cr>
+
+" use ctrl-c as exc
+map <C-c> <esc>
+vmap <C-c> <esc>
+
+" search and replace
+fun! <SID>StripTrailingWhitespaces()
+   let l = line(".")
+   let c = col(".")
+   %s/\s\+$//e
+   call cursor(l, c)
+endfun
+noremap <leader>S :call <SID>StripTrailingWhitespaces()<cr>
+
+" cycle between buffers
+nnoremap <leader><leader> <c-^>
+
+if !has('nvim')
+  set ttymouse=xterm2
+endif
+
+let g:syntastic_javascript_checkers=['standard']
+let g:syntastic_javascript_standard_exec = 'semistandard'
+"autocmd bufwritepost *.js silent !semistandard % --format"
+command SSFormat silent! !semistandard --format %:p
+set autoread
+
+let g:jsx_ext_required=0
+
+" remap ;; to escape
+:imap ;; <Esc>
+:imap :: <Esc>
+
+" new line between () {}
+imap <C-c> <CR><Esc>O
+
+" faster nav split
+set splitbelow
+set splitright
+
+" nnoremap <C-H> <C-W><C-H>
+" nnoremap <C-J> <C-W><C-J>
+" nnoremap <C-K> <C-W><C-K>
+" nnoremap <C-L> <C-W><C-L>
+
+autocmd filetype crontab setlocal nobackup nowritebackup

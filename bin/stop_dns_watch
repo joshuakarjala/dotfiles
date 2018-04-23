@@ -1,0 +1,5 @@
+sudo networksetup -setdnsservers Wi-Fi $(cat ~/temp.dot.dns.conf)
+
+if networksetup -listallhardwareports | grep -q 'Apple USB Ethernet Adapter'; then
+  sudo networksetup -setdnsservers 'Apple USB Ethernet Adapter' $(cat ~/temp.dot.dns.usb.conf)
+fi

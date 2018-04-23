@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# dot-install
+#
+# `dot-install` handles installation, updates, things like that. Run it periodically
+# to make sure you're on the latest and greatest. + specific sub install
+export ZSH=$HOME/.dotfiles
+set -e
+
+$ZSH/bin/start_dns_watch
+
+cd "$(dirname $0)"/..
+
+# find the installers and run them iteratively
+find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+
+$ZSH/bin/stop_dns_watch

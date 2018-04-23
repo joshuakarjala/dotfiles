@@ -1,0 +1,13 @@
+# export DNS_WATCH_1=84.200.69.80
+# export DNS_WATCH_2=84.200.70.40
+
+export DNS_WATCH_1=193.138.219.228
+export DNS_WATCH_2=193.138.219.228
+
+networksetup -getdnsservers Wi-Fi > ~/temp.dot.dns.conf
+sudo networksetup -setdnsservers Wi-Fi $DNS_WATCH_1 $DNS_WATCH_2
+
+if networksetup -listallhardwareports | grep -q 'Apple USB Ethernet Adapter'; then
+  networksetup -getdnsservers 'Apple USB Ethernet Adapter' > ~/temp.dot.dns.usb.conf
+  sudo networksetup -setdnsservers 'Apple USB Ethernet Adapter' $DNS_WATCH_1 $DNS_WATCH_2
+fi

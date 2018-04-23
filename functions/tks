@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+if [[ $# == 0 ]]; then
+  tmux ls | selecta | sed -e 's/:.*$//' | xargs tmux kill-session -t
+else
+  tmux kill-session -t $1;
+fi
