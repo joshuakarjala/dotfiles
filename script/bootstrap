@@ -2,6 +2,13 @@
 #
 # bootstrap installs things.
 
+# first install zsh
+if test "$(uname -s)" = "Darwin"; then
+  brew install zsh
+else
+  sudo apt-get install -y zsh
+fi
+
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 
@@ -141,22 +148,23 @@ setup_gitconfig
 install_dotfiles
 
 # If we're on a Mac, let's install and setup homebrew.
-if [ "$(uname -s)" == "Darwin" ]
-then
+if [ "$(uname -s)" == "Darwin" ]; then
   info "installing dependencies"
-  if source bin/dot > /tmp/dotfiles-dot 2>&1
-  then
+  if source bin/dot > /tmp/dotfiles-dot 2>&1; then
     success "dependencies installed"
   else
     fail "error installing dependencies"
   fi
 fi
 
-chsh -s /bin/zsh
-
-if [ "$(uname -s)" == "Darwin" ]
-  curl -L https://iterm2.com/misc/install_shell_integration.sh | zsh
+if test "$(uname)" = "Darwin"; then
+  chsh -s /usr/local/bin/zsh
+else
+  chsh -s /usr/bin/zsh
 fi
 
 echo ''
-echo '  All installed!'
+echo ' All Linked!'
+echo ''
+echo ''
+echo 'Remember to add your ssh key and run ssh-agent zsh | ssh-add ~/.ssh/keyname and then run script/install'

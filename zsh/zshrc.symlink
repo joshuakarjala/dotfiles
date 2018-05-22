@@ -2,6 +2,18 @@
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+### Specific settings for OSX
+###
+if test ! "$(uname)" = "Darwin"; then
+  # homebrew token source
+  if [[ -s "~/.dotfiles/homebrew/homebrew_github_token.ignore" ]]; then
+    source ~/.dotfiles/homebrew/homebrew_github_token.ignore
+  fi
+
+fi
+###
+### END specific for OSX
+
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
@@ -17,8 +29,12 @@ export XDG_CONFIG_HOME=$HOME/.config
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Code
 
-export GOPATH=$HOME/Code/go
+export GOPATH=$HOME/.go
 PATH=$PATH:$GOPATH/bin
+PATH="/usr/local/opt/libarchive/bin:$PATH"
+
+#python3 default
+export PATH=/usr/local/opt/python/libexec/bin:$PATH
 
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
@@ -62,13 +78,6 @@ lazy_source () {
   eval "$1 () { [ -f $2 ] && source $2 && $1 \$@ }"
 }
 
-# iterm2
-if [[ `uname` == 'Darwin' ]]; then
-  # source ~/.iterm2_shell_integration.zsh
-  source ~/.iterm2_shell_integration.`basename $SHELL`
-fi
-# end iterm2
-
 # nave
 unset ZDOTDIR
 export PATH=$NAVEPATH:$PATH
@@ -88,4 +97,6 @@ export PATH="$HOME/.yarn/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-source ~/.dotfiles/homebrew/homebrew_github_token.ignore
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/joshua/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/joshua/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/slss.zshexport

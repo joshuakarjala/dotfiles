@@ -7,11 +7,22 @@
 export ZSH=$HOME/.dotfiles
 set -e
 
-$ZSH/bin/start_dns_watch
+if test "$(uname)" = "Darwin"; then
+  $ZSH/homebrew/install.sh 2>&1
+else
+  $ZSH/apt-get/install.sh 2>&1
+fi
+
+
+if test "$(uname)" = "Darwin"; then
+  $ZSH/bin/start_dns_watch
+fi
 
 cd "$(dirname $0)"/..
 
 # find the installers and run them iteratively
 find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
 
-$ZSH/bin/stop_dns_watch
+if test "$(uname)" = "Darwin"; then
+  $ZSH/bin/stop_dns_watch
+fi

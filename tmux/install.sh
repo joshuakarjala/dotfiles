@@ -14,3 +14,21 @@ fi
 $HOME/.tmux/plugins/tpm/bin/install_plugins
 $HOME/.tmux/plugins/tpm/bin/update_plugins all
 $HOME/.tmux/plugins/tpm/bin/clean_plugins
+
+## setup remote pbcopy
+
+mkdir -p ~/.tmux
+
+if test "$(uname)" = "Darwin"; then
+  if [ ! -f ~/Library/LaunchAgents/pbcopy.plist ]; then
+    ln -s ~/.dotfiles/tmux/pbcopy.plist ~/Library/LaunchAgents/pbcopy.plist
+  fi
+fi
+
+if [ ! -f ~/.tmux/tmux.remote.conf ]; then
+  ln -s ~/.dotfiles/tmux/tmux.remote.conf ~/.tmux/tmux.remote.conf
+fi
+
+if [ ! -f ~/.tmux/renew_env.sh ]; then
+  ln -s ~/.dotfiles/tmux/renew_env.sh ~/.tmux/renew_env.sh
+fi
