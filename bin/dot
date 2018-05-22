@@ -14,14 +14,16 @@ $ZSH/bin/start_dns_watch
 # Upgrade homebrew and other stuff
 brew update
 brew upgrade
-brew prune
-brew cleanup --force -s
+brew cask upgrade
+brew cleanup --prune 0
 gem update
 gem clean
 yarn global upgrade
 vim +PlugUpgrade +PlugUpdate +PlugClean +qa
 
+mackup backup
+
 # Install homebrew packages
-$ZSH/homebrew/install.sh 2>&1
+# $ZSH/homebrew/install.sh 2>&1
 
 $ZSH/bin/stop_dns_watch

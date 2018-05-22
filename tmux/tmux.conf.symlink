@@ -11,7 +11,7 @@ set -g mouse on
 
 set -g default-terminal "screen-256color"
 set -ga terminal-overrides 'xterm*:smcup@:rmcup@'
-set -g history-limit 30000
+set -g history-limit 15000
 
 set-option -sg escape-time 0
 
@@ -35,7 +35,8 @@ bind -n M-Down  select-pane -D
 set -g update-environment -r
 
 # start window numbers at 1 to match keyboard order with tmux window order
-set -g base-index 0
+set -g base-index 1
+setw -g pane-base-index 1
 # renumber windows sequentially after closing any of them
 set -g renumber-windows on
 

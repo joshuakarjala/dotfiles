@@ -1,2 +1,2 @@
 #!/bin/sh
-gem install tmuxinator jekyll
+gem install jekyll
