@@ -1,7 +1,6 @@
 git/gitconfig.symlink
 vim/vim.symlink/plugged
 .netrwhist
-vim/vim.symlink/autoload/plug.vim
 vim/vim.symlink/autoload/plug.vim.old
 vim/bundle
 vim/vim.symlink/.vim
