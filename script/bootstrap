@@ -2,6 +2,13 @@
 #
 # bootstrap installs things.
 
+# first install zsh
+if test "$(uname -s)" = "Darwin"; then
+  brew install zsh
+else
+  sudo apt-get install -y zsh
+fi
+
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 
