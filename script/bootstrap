@@ -5,10 +5,8 @@
 # first install zsh
 if test "$(uname -s)" = "Darwin"; then
   brew install zsh
-  zsh
 else
   sudo apt-get install -y zsh
-  zsh
 fi
 
 cd "$(dirname "$0")/.."
