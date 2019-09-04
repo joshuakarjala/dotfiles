@@ -5,6 +5,10 @@
 # This installs some of the common dependencies needed (or at least desired)
 # using Homebrew.
 
+if test ! "$(uname)" = "Darwin"; then
+  exit 0
+fi
+
 # Check for Homebrew
 if test ! $(which brew)
 then
@@ -14,7 +18,7 @@ fi
 
 # Install homebrew packages
 brew tap neovim/neovim
-brew install mackup tmux grc grep emacs coreutils tree ack ctags selecta htop-osx curl wget cmake boost the_silver_searcher thefuck gpg2 gpg postgres imagemagick ghostscript git-flow autoenv httpie siege wrk libuv unibilium libtermkey libvterm vim neovim python ruby heroku shfmt
+brew install zsh tmux grc grep emacs coreutils tree ack ctags fzy htop-osx curl wget cmake boost the_silver_searcher thefuck gpg2 gpg postgres imagemagick ghostscript git-flow autoenv httpie siege wrk libuv unibilium libtermkey libvterm vim neovim python ruby heroku shfmt
 
 brew cask install alacritty webpquicklook quicklook-json qlstephen qlmarkdown qlcolorcode qlprettypatch quicklook-csv
 

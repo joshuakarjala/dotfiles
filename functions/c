@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 if [[ $# == 0 ]]; then
-    cd $(find $PROJECTS -d -maxdepth 3 | selecta)
+    cd $(find $PROJECTS -d -maxdepth 3 | fzy)
 else
     cd $PROJECTS/$1;
 fi

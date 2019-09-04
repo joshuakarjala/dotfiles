@@ -1,6 +1,5 @@
 # only if running osx
-OS="$(uname -s)"
-if test "$OS" != "Darwin"; then
+if test "$(uname -s)" != "Darwin"; then
     exit
 fi
 

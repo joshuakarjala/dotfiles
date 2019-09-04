@@ -1,2 +1,8 @@
 #!/bin/sh
-gem install jekyll
+
+if test "$(uname -s)" = "Darwin"; then
+  gem install jekyll
+else
+  gem install --user-install jekyll
+fi
+
