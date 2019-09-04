@@ -139,6 +139,5 @@ zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
 
 # Auto start a session when Zsh is launched in a SSH connection.
 zstyle ':prezto:module:tmux:auto-start' remote 'yes'
+zstyle ':prezto:module:tmux:session' name hostname -s
 
-# Integrate with iTerm2. don't want this crap :)
-zstyle ':prezto:module:tmux:iterm' integrate 'yes'
