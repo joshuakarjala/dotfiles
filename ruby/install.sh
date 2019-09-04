@@ -3,6 +3,7 @@
 if test "$(uname -s)" = "Darwin"; then
   gem install jekyll
 else
-  gem install --user-install jekyll
+  # probably only need on mac
+  # gem install --user-install jekyll
 fi
 
