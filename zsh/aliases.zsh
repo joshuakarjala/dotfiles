@@ -1,6 +1,6 @@
 alias reload!='. ~/.zshrc'
 alias vim='nvim'
-alias n='nave use lts'
+alias n='nave use latest'
 alias y='yarn'
 alias yg='yarn global'
 alias subl='open -a "Sublime Text"'

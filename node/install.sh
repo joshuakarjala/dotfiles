@@ -20,7 +20,13 @@ fi
 
 # update version here when needed
 nave install latest
-nave use latest
+
+if test "$(uname)" = "Darwin"; then
+  nave usemain latest
+else
+  sudo nave usemain latest
+fi
+
 nave cache clear
 
 npm_default_packages="nodemon airpaste semistandard create-project snazzy standard-format http-server serverless typescript eslint eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-standard eslint-plugin-promise"

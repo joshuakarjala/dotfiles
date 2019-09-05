@@ -157,7 +157,10 @@ if [ "$(uname -s)" == "Darwin" ]; then
   fi
 fi
 
-chsh -s /bin/zsh
+chsh -s /usr/local/bin/zsh
 
 echo ''
 echo '  All installed!'
+echo ''
+echo ''
+echo 'Remember to add your ssh key and run ssh-add ~/.ssh/keyname'
