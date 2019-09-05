@@ -19,8 +19,10 @@ $HOME/.tmux/plugins/tpm/bin/clean_plugins
 
 mkdir -p ~/.tmux
 
-if [ ! -f ~/Library/LaunchAgents/pbcopy.plist ]; then
-  ln -s ~/.dotfiles/tmux/pbcopy.plist ~/Library/LaunchAgents/pbcopy.plist
+if test "$(uname)" = "Darwin"; then
+  if [ ! -f ~/Library/LaunchAgents/pbcopy.plist ]; then
+    ln -s ~/.dotfiles/tmux/pbcopy.plist ~/Library/LaunchAgents/pbcopy.plist
+  fi
 fi
 
 if [ ! -f ~/.tmux/tmux.remote.conf ]; then
