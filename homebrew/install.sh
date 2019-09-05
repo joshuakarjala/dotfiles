@@ -18,7 +18,7 @@ fi
 
 # Install homebrew packages
 brew tap neovim/neovim
-brew install zsh tmux grc grep emacs coreutils tree ack ctags fzy htop-osx curl wget cmake boost the_silver_searcher thefuck gpg2 gpg libpq imagemagick ghostscript git-flow autoenv httpie siege wrk libuv unibilium libtermkey libvterm vim neovim python ruby heroku shfmt
+brew install zsh tmux grc grep emacs coreutils tree ack ctags fzy htop-osx curl wget cmake boost the_silver_searcher thefuck gpg2 gpg libpq imagemagick ghostscript git-flow autoenv httpie siege wrk libuv unibilium libtermkey libvterm vim neovim python ruby heroku shfmt reattach-to-user-namespace
 
 brew cask install alacritty webpquicklook quicklook-json qlstephen qlmarkdown qlcolorcode qlprettypatch quicklook-csv
 
