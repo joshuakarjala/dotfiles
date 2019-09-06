@@ -25,7 +25,7 @@ elif [ -n "${DISPLAY-}" ] && is_app_installed xclip; then
 elif [ -n "${copy_backend_remote_tunnel_port-}" ] \
     && (netstat -f inet -nl 2>/dev/null || netstat -4 -nl 2>/dev/null) \
       | grep -q "[.:]$copy_backend_remote_tunnel_port"; then
-  copy_backend="nc localhost $copy_backend_remote_tunnel_port"
+  copy_backend="nc -q0 localhost $copy_backend_remote_tunnel_port"
 fi
 
 # if copy backend is resolved, copy and exit
