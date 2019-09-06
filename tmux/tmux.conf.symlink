@@ -118,8 +118,6 @@ set -g default-shell $SHELL
 set -g @prefix_highlight_show_copy_mode 'on'
 set -g @prefix_highlight_copy_mode_attr 'fg=black,bg=yellow,bold' # default is 'fg=default,bg=yellow'
 
-set -g @override_copy_command 'nc -q0 localhost 3451'
-
 # =====================================
 # ===           Theme               ===
 # =====================================
@@ -167,8 +165,8 @@ set -g window-status-separator ""
 separator_powerline_left=""
 separator_powerline_right=""
 
-# setw -g window-status-style "fg=$color_status_text,bg=$color_dark"
 setw -g window-status-format " #I:#W "
+
 setw -g window-status-current-style "fg=$color_light,bold,bg=$color_main"
 setw -g window-status-current-format "#[fg=$color_dark,bg=$color_main]$separator_powerline_right#[default] #I:#W# #[fg=$color_main,bg=$color_dark]$separator_powerline_right#[default]"
 
@@ -186,18 +184,12 @@ set -g status-left-length 90
 set -g status-right-length 100
 set -g status-position bottom
 
-if-shell '[ -n "$SSH_CLIENT" ]' \
-  'set -g status-position top' \
-
 set -g set-titles on
 set -g set-titles-string '#S:#I.#P #W'
 
-set -g status-justify left
 set -g status-style fg=white,bg=default,bright
 
-set -g window-status-format ' #I: #W '
 set -g window-status-current-format ' #I: #W '
-set -g window-status-style fg=white,bg=black,dim
 set -g window-status-current-style fg=white,bg=colour207,bright
 
 set -g status-left "#{prefix_highlight}#[fg=Cyan, bold]#(hostname -s)#[fg=white]::#[fg=yellow, bold]#(curl ipecho.net/plain;echo) "

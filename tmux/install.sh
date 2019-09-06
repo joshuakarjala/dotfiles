@@ -29,10 +29,6 @@ if [ ! -f ~/.tmux/tmux.remote.conf ]; then
   ln -s ~/.dotfiles/tmux/tmux.remote.conf ~/.tmux/tmux.remote.conf
 fi
 
-if [ ! -f ~/.tmux/yank.sh ]; then
-  ln -s ~/.dotfiles/tmux/yank.sh ~/.tmux/yank.sh
-fi
-
 if [ ! -f ~/.tmux/renew_env.sh ]; then
   ln -s ~/.dotfiles/tmux/renew_env.sh ~/.tmux/renew_env.sh
 fi
