@@ -221,13 +221,12 @@ setw -g pane-active-border-style "fg=$color_main"
 # general status bar settings
 set -g status on
 set -g status-interval 5
-set -g status-position top
 set -g status-justify left
 set -g status-right-length 100
-
 set -g status-position bottom
-if-shell 'test -n "$SSH_CLIENT"' \
-    'set -g status-position top'
+
+if-shell '[ -n "$SSH_CLIENT" ]' \
+  'set -g status-position top' \
 
 set -g set-titles on
 set -g set-titles-string '#S:#I.#P #W'
