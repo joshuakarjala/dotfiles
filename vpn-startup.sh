@@ -1,4 +1,6 @@
 #!/bin/sh
+mv /etc/localtime /etc/localtime.old
+ln -s /usr/share/zoneinfo/Europe/Copenhagen /etc/localtime
 
 adduser --disabled-password --shell /bin/bash --gecos "" joshua
 echo "joshua:changeThis" | sudo chpasswd
