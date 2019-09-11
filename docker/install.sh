@@ -6,6 +6,8 @@ if test "$(uname -s)" != "Darwin"; then
   sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   sudo apt-get update
   sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose
+  # add user to docker group
+  sudo usermod -a -G docker $USER
 else
   brew cask install docker
 fi

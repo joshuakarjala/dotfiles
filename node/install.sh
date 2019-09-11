@@ -34,7 +34,7 @@ npm_default_packages="nodemon airpaste semistandard create-project snazzy standa
 ### Specific settings for OSX
 ###
 if test "$(uname)" = "Darwin"; then
-  npm_default_packages="$npm_default_osx_packages peerflix dat"
+  npm_default_packages="$npm_default_osx_packages peerflix"
 fi
 ###
 ### END specific for OSX
