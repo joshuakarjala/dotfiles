@@ -21,6 +21,7 @@ else
   sudo apt-get update
   sudo apt-get upgrade -y
   sudo apt-get autoclean -y
+  sudo snap refresh
 fi
 
 gem update
