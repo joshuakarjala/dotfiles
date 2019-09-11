@@ -13,3 +13,5 @@ sudo apt-get install -y zsh tmux grc grep emacs coreutils tree ack ctags htop cu
 
 sudo snap install shfmt
 sudo snap install --classic heroku
+sudo snap install doctl
+sudo snap install kubectl --classic
