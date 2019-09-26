@@ -157,14 +157,9 @@ if [ "$(uname -s)" == "Darwin" ]; then
   fi
 fi
 
-if test "$(uname)" = "Darwin"; then
-  chsh -s /usr/local/bin/zsh
-else
-  chsh -s /usr/bin/zsh
-fi
-
 echo ''
 echo ' All Linked!'
 echo ''
 echo ''
 echo 'Remember to add your ssh key and run ssh-agent zsh | ssh-add ~/.ssh/keyname and then run script/install'
+echo 'Remember to change shell to zsh'
