@@ -60,12 +60,6 @@ bind + resize-pane -Z
 # Link window
 bind L command-prompt -p "Link window from (session:window): " "link-window -s %% -a"
 
-# Swap panes back and forth with 1st pane
-# When in main-(horizontal|vertical) layouts, the biggest/widest panel is always @1
-bind \ if '[ #{pane_index} -eq 1 ]' \
-     'swap-pane -s "!"' \
-     'select-pane -t:.1 ; swap-pane -d -t 1 -s "!"'
-
 bind-key , command-prompt -I "#W" "rename-window '%%'"
 
 # Merge session with another one (e.g. move all windows)

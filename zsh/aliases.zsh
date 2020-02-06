@@ -8,5 +8,3 @@ alias sl='serverless'
 alias stree='/Applications/SourceTree.app/Contents/Resources/stree'
 alias ta='tmux attach'
 alias tlocal='tmux attach-session -t local || tmux new-session -s local'
-alias python=python3
-alias pip=pip3

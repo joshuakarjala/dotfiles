@@ -7,5 +7,6 @@ if test "$(uname -s)" != "Darwin"; then
   export PATH="/snap/bin/:$PATH"
 else
   export PATH="/usr/local/opt/ruby/bin:$PATH"
+  export PATH="/Users/joshua/.local/bin/:$PATH"
 fi
 
