@@ -19,15 +19,18 @@ if test ! $(which yarn); then
 fi
 
 # update version here when needed
-nave install latest
+# nave install lts is broken
 
 if test "$(uname)" = "Darwin"; then
-  nave usemain latest
+  nave usemain lts
 else
-  sudo nave usemain latest
+  sudo nave usemain lts
 fi
 
 nave cache clear
+
+brew unlink yarn && brew link yarn 
+
 
 npm_default_packages="nodemon airpaste semistandard create-project snazzy standard-format http-server serverless typescript eslint eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-standard eslint-plugin-promise"
 
@@ -38,5 +41,6 @@ if test "$(uname)" = "Darwin"; then
 fi
 ###
 ### END specific for OSX
+
 
 yarn global add $npm_default_packages

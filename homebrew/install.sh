@@ -21,6 +21,6 @@ brew tap neovim/neovim
 brew tap heroku/brew
 
 brew install pyenv pipx zsh heroku tmux grc grep emacs coreutils tree ack ctags fzy htop-osx curl wget cmake boost the_silver_searcher thefuck gpg2 gpg libpq imagemagick ghostscript git-flow autoenv httpie siege wrk libuv unibilium libtermkey libvterm vim neovim python ruby shfmt reattach-to-user-namespace doctl kubernetes-cli restic rclone ext4fuse
-brew cask install alacritty webpquicklook quicklook-json qlstephen qlmarkdown qlcolorcode qlprettypatch quicklook-csv cronnix marta db-browser-for-sqlite osxfuse
+brew cask install webpquicklook quicklook-json qlstephen qlmarkdown qlcolorcode qlprettypatch quicklook-csv cronnix marta db-browser-for-sqlite osxfuse
 
 exit 0
