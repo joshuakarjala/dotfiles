@@ -26,7 +26,7 @@ Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-obsession'
 
 " things
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'bling/vim-airline'
 Plug 'Raimondi/delimitMate'
@@ -35,17 +35,17 @@ Plug 'mileszs/ack.vim'
 
 " filetypes and syntax
 Plug 'sheerun/vim-polyglot'
-" Plug 'tpope/vim-markdown'
-" Plug 'pangloss/vim-javascript'
+Plug 'tpope/vim-markdown'
+Plug 'pangloss/vim-javascript'
 " Plug 'jelera/vim-javascript-syntax'
-" Plug 'JulesWang/css.vim'
+Plug 'JulesWang/css.vim'
 " Plug 'cakebaker/scss-syntax.vim'
-" Plug 'othree/html5.vim'
+Plug 'othree/html5.vim'
 " Plug 'davidoc/taskpaper.vim'
-" Plug 'ingydotnet/yaml-vim'
-" Plug 'scrooloose/syntastic'
-" Plug 'mxw/vim-jsx'
-" Plug 'tmux-plugins/vim-tmux'
+Plug 'ingydotnet/yaml-vim'
+Plug 'scrooloose/syntastic'
+Plug 'mxw/vim-jsx'
+Plug 'tmux-plugins/vim-tmux'
 
 " stupid themes
 Plug 'junegunn/seoul256.vim'

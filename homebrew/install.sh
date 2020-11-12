@@ -20,7 +20,7 @@ fi
 brew tap neovim/neovim
 
 brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize suspicious-package quicklookase qlvideo webpquicklook marta db-browser-for-sqlite osxfuse
-brew install zsh tmux grc grep coreutils tree ack ctags fzy htop-osx curl wget cmake boost thefuck neovim vim python ruby reattach-to-user-namespace restic rclone rsync ext4fuse libuv unibilium the_silver_searcher pyenv
+brew install zsh tmux grc grep coreutils tree fzf ack ctags fzy htop-osx curl wget cmake boost thefuck neovim vim python ruby reattach-to-user-namespace restic rclone rsync ext4fuse libuv unibilium the_silver_searcher pyenv
 
 # for catalina
 xattr -d -r com.apple.quarantine ~/Library/QuickLook
