@@ -9,6 +9,8 @@ else
   sudo apt-get install -y zsh
 fi
 
+mkdir -p ~/.config
+
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 
