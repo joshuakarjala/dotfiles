@@ -12,6 +12,6 @@ if test ! $(which yarn); then
   curl -o- -L https://yarnpkg.com/install.sh | bash
 fi
 
-npm_default_packages="airpaste http-server typescript eslint"
+npm_default_packages="typescript eslint"
 
 yarn global add $npm_default_packages

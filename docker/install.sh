@@ -9,5 +9,5 @@ if test "$(uname -s)" != "Darwin"; then
   # add user to docker group
   sudo usermod -a -G docker $USER
 else
-  brew cask install docker
+  brew install --cask docker
 fi

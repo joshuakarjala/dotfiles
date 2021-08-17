@@ -1,6 +1,6 @@
 # want to be sure it's aliased when installing
-pyenv install -s 3.9.0
-pyenv global 3.9.0
+pyenv install -s 3.9.6
+pyenv global 3.9.6
 
 base_python_packages="gnureadline ipython args PyQt5 psutil requests pipx autopep8 flake8 pep8 pylint pipenv"
 
