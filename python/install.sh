@@ -1,8 +1,8 @@
 # want to be sure it's aliased when installing
-pyenv install -s 3.9.6
-pyenv global 3.9.6
+pyenv install -s 3.11.1
+pyenv global 3.11.1
 
-base_python_packages="gnureadline ipython args PyQt5 psutil requests pipx autopep8 flake8 pep8 pylint pipenv"
+base_python_packages="gnureadline ipython args PyQt6 psutil requests pipx autopep8 flake8 pep8 pylint pipenv"
 
 if test "$(uname -s)" = "Darwin"; then
   pip install --upgrade pip

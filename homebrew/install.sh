@@ -19,8 +19,8 @@ fi
 # Install homebrew packages
 brew tap neovim/neovim
 
-brew install --cask qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize suspicious-package quicklookase qlvideo webpquicklook marta db-browser-for-sqlite osxfuse
-brew install zsh tmux grc grep coreutils tree fzf ack ctags fzy htop-osx curl wget cmake boost thefuck neovim vim python ruby reattach-to-user-namespace restic rclone rsync ext4fuse libuv unibilium the_silver_searcher pyenv
+brew install --cask qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize qlvideo suspicious-package quicklookase qlvideo webpquicklook marta db-browser-for-sqlite
+brew install zsh tmux grc grep coreutils tree fzf ack ctags fzy htop-osx curl wget cmake boost thefuck neovim vim python ruby reattach-to-user-namespace restic rclone rsync libuv unibilium the_silver_searcher pyenv gnupg
 
 # for catalina
 xattr -d -r com.apple.quarantine ~/Library/QuickLook
