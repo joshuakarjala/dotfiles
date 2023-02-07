@@ -1,8 +1,8 @@
 # export DNS_WATCH_1=84.200.69.80
 # export DNS_WATCH_2=84.200.70.40
 
-export DNS_WATCH_1=91.239.100.100
-export DNS_WATCH_2=89.233.43.71
+export DNS_WATCH_1=1.1.1.1
+export DNS_WATCH_2=1.0.0.1
 
 networksetup -getdnsservers Wi-Fi > ~/temp.dot.dns.conf
 sudo networksetup -setdnsservers Wi-Fi $DNS_WATCH_1 $DNS_WATCH_2
