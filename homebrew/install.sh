@@ -19,7 +19,7 @@ fi
 # Install homebrew packages
 brew tap neovim/neovim
 
-brew install --cask qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize qlvideo suspicious-package quicklookase qlvideo webpquicklook marta db-browser-for-sqlite
+brew install --cask qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize qlvideo suspicious-package quicklookase qlvideo webpquicklook marta db-browser-for-sqlite ngrok
 brew install zsh tmux grc grep coreutils tree fzf ack ctags fzy htop-osx curl wget cmake boost thefuck neovim vim python ruby reattach-to-user-namespace restic rclone rsync libuv unibilium the_silver_searcher pyenv gnupg
 
 # for catalina

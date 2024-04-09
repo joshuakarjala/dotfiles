@@ -71,6 +71,7 @@ defaults write com.apple.finder FXPreferredViewStyle Clmv
 
 echo 'Avoid creating .DS_Store files on network volumes'
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 echo "Setting Dock to auto-hide and removing the auto-hiding delay"
 defaults write com.apple.dock autohide -bool true
