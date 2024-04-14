@@ -186,7 +186,7 @@ set -g status-style fg=white,bg=default,bright
 set -g window-status-current-format ' #I: #W '
 set -g window-status-current-style fg=white,bg=colour207,bright
 
-set -g status-left "#{prefix_highlight}#[fg=Cyan, bold]#(hostname -s)#[fg=white]::#[fg=yellow, bold]#(curl ipecho.net/plain;echo) "
+set -g status-left "#{prefix_highlight}#[fg=Cyan, bold]#(hostname -s)#[fg=white]:#[fg=blue]#(ifconfig | awk '$1 == \"inet\" { print $2 }'|tail -1):#[fg=yellow, bold]#(curl ipecho.net/plain;echo) "
 set -g status-right "$wg_is_keys_off $wg_is_zoomed #{sysstat_cpu} | #{sysstat_mem} | #{sysstat_loadavg} | $wg_date $wg_battery #{online_status}"
 
 # define widgets we're going to use in status bar
