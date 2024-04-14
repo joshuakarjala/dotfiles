@@ -1,7 +1,13 @@
-if test ! $(which pyenv) && test "$(uname -s)" = "Linux";
+if test ! $(command -v pyenv);
 then
-  curl https://pyenv.run | bash
+  if test "$(uname -s)" = "Linux";
+  then
+    curl https://pyenv.run | bash
+  else
+    brew install pyenv
+  fi
 fi
+
 # want to be sure it's aliased when installing
 pyenv install 3.12 -s
 pyenv global 3.12
@@ -16,6 +22,7 @@ else
   pip install --user --upgrade $base_python_packages
 fi
 
-if test ! $(which poetry); then
+if test ! $(command -v poetry);
+then
   pipx install poetry
 fi
