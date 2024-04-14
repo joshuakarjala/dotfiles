@@ -6,11 +6,6 @@
 # to make sure you're on the latest and greatest.
 export ZSH=$HOME/.dotfiles
 
-if test "$(uname)" = "Darwin"; then
-  $ZSH/osx/set-defaults.sh
-  $ZSH/bin/start_dns_watch
-fi
-
 # Upgrade appications and dependencies and other stuff
 if test "$(uname)" = "Darwin"; then
   brew update
@@ -28,7 +23,3 @@ gem update
 gem clean
 yarn global upgrade
 vim +PlugUpgrade +PlugUpdate +PlugClean +qa
-
-if test "$(uname)" = "Darwin"; then
-  $ZSH/bin/stop_dns_watch
-fi
