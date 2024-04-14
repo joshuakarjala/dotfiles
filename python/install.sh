@@ -1,8 +1,12 @@
+if test ! $(which pyenv) && test "$(uname -s)" = "Linux";
+then
+  curl https://pyenv.run | bash
+fi
 # want to be sure it's aliased when installing
-pyenv install -s 3.11.1
-pyenv global 3.11.1
+pyenv install 3.12 -s
+pyenv global 3.12
 
-base_python_packages="gnureadline ipython args PyQt6 psutil requests pipx autopep8 flake8 pep8 pylint pipenv"
+base_python_packages="gnureadline ipython args psutil requests pipx autopep8 flake8 pep8 pylint"
 
 if test "$(uname -s)" = "Darwin"; then
   pip install --upgrade pip
@@ -10,4 +14,8 @@ if test "$(uname -s)" = "Darwin"; then
 else
   pip install --user --upgrade pip
   pip install --user --upgrade $base_python_packages
+fi
+
+if test ! $(which poetry); then
+  pipx install poetry
 fi

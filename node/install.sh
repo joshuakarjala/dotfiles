@@ -2,7 +2,7 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 if test ! $(command -v nvm); then
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
+  curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 fi
 
 nvm install --lts
