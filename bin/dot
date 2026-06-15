@@ -19,7 +19,7 @@ else
   sudo snap refresh
 fi
 
-gem update
-gem clean
+# gem update
+# gem clean
 yarn global upgrade
 vim +PlugUpgrade +PlugUpdate +PlugClean +qa
