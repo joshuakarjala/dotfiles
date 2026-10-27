@@ -1,11 +1,12 @@
+#!/bin/sh
 # only if running osx
 if test "$(uname -s)" != "Darwin"; then
     exit
 fi
 
-# Sets reasonable OS X defaults.
+# Sets reasonable macOS defaults.
 #
-# Or, in other words, set shit how I like in OS X.
+# Or, in other words, set shit how I like in macOS.
 #
 # The original idea (and a couple settings) were grabbed from:
 #   https://github.com/mathiasbynens/dotfiles/blob/master/.osx
@@ -15,9 +16,6 @@ fi
 # Disable press-and-hold for keys in favor of key repeat.
 defaults write -g ApplePressAndHoldEnabled -bool false
 
-# Use AirDrop over every interface. srsly this should be a default.
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
-
 # Show the ~/Library folder.
 chflags nohidden ~/Library
 
@@ -25,27 +23,8 @@ chflags nohidden ~/Library
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
-# Hide Safari's bookmark bar.
-defaults write com.apple.Safari ShowFavoritesBar -bool false
-
-# Set up Safari for development.
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
-defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
-
 echo 'Allow Selection in QuickLook'
 defaults write com.apple.finder QLEnableTextSelection -bool true
-
-echo 'Completely turn off Dashboard'
-defaults write com.apple.dashboard mcx-disabled -bool true
-
-echo "Check for software updates daily, not just once per week"
-defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
-
-echo 'Disable the “Are you sure you want to open this application?” dialog'
-defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 echo 'Enable full keyboard access for all controls'
 echo '(e.g. enable Tab in modal dialogs)'
@@ -75,10 +54,8 @@ defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0
 
-echo "Disable smart quotes as it's annoying for messages that contain code"
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
-
 echo "Preventing Time Machine from prompting to use new hard drives as backup volume"
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
-
+echo "Restarting Finder and Dock to apply the changes"
+killall Finder Dock 2>/dev/null || true

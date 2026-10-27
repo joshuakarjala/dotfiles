@@ -1,88 +1,71 @@
 # joshuakarjala does dotfiles
 
-## dotfiles
+My shell, editor, tmux and tooling setup for **macOS** and **Ubuntu**. Everything is organised by topic
+(zsh, git, tmux, vim, python, node, ...), so each area lives in its own folder.
 
-Your dotfiles are how you personalize your system. These are mine.
-
-I was a little tired of having long alias files and everything strewn about
-(which is extremely common on other dotfiles projects, too). That led to this
-project being much more topic-centric. I realized I could split a lot of things
-up into the main areas I used (Ruby, git, system libraries, and so on), so I
-structured the project accordingly.
-
-If you're interested in the philosophy behind why projects like these are
-awesome, you might want to [read my post on the
-subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/).
+Forked from [Zach Holman's dotfiles](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/), which
+grew out of [Ryan Bates' dotfiles](http://github.com/ryanb/dotfiles).
 
 ## install
-
-Run this:
 
 ```sh
 git clone https://github.com/joshuakarjala/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-script/bootstrap
+script/bootstrap   # links the dotfiles, sets up git, installs zsh (and Homebrew on a Mac)
+script/install     # installs packages and tools
 ```
 
-This will symlink the appropriate files in `.dotfiles` to your home directory.
-Everything is configured and tweaked within `~/.dotfiles`.
+`script/bootstrap` asks for your git name and email, symlinks every `*.symlink` file into `$HOME`, and on a Mac
+applies my macOS preferences (`osx/set-defaults.sh`, which restarts Finder and the Dock).
+`script/install` runs the platform installer (`homebrew/install.sh` on macOS, `apt-get/install.sh` on Ubuntu)
+and then every topic's `install.sh` (docker, node, prezto, python, tmux, vim). It reports any installer that fails.
 
-The main file you'll want to change right off the bat is `zsh/zshrc.symlink`,
-which sets up a few paths that'll be different on your particular machine.
+When it's done:
 
-`dot` is a simple script that installs some dependencies, sets sane OS X
-defaults, and so on. Tweak this script, and occasionally run `dot` from
-time to time to keep your environment fresh and up-to-date. You can find
-this script in `bin/`.
+- add your ssh key (`ssh-add ~/.ssh/<keyname>`)
+- change your shell to zsh (`chsh -s "$(command -v zsh)"`)
+- on macOS, run `set-defaults` any time to re-apply the macOS preferences
 
-## topical
+## updating
 
-Everything's built around topic areas. If you're adding a new area to your
-forked dotfiles — say, "Java" — you can simply add a `java` directory and put
-files in there. Anything with an extension of `.zsh` will get automatically
-included into your shell. Anything with an extension of `.symlink` will get
-symlinked without extension into `$HOME` when you run `script/bootstrap`.
+Run `dot` now and then. It updates Homebrew (macOS) or apt and snap (Ubuntu), then your vim plugins.
+`dot-install` re-runs the full install.
 
-## what's inside
+## how it's organised
 
-A lot of stuff. Seriously, a lot of stuff. Check them out in the file browser
-above and see what components may mesh up with you.
-[Fork it](https://github.com/joshuakarjala/dotfiles/fork), remove what you don't
-use, and build on what you do use.
+- **topic/\*.symlink**: symlinked into `$HOME` without the extension by `script/bootstrap`
+  (`zsh/zshrc.symlink` becomes `~/.zshrc`).
+- **topic/\*.zsh**: loaded into every shell. `path.zsh` files load first and `completion.zsh` files last.
+- **topic/install.sh**: run by `script/install`.
+- **bin/**: put on your `$PATH`.
+- **functions/**: zsh functions (`c` jumps to a project, `tks` kills a tmux session).
 
-## components
+Machine-specific settings and secrets go in `~/.localrc`, which is sourced but never committed. The generated
+`git/gitconfig.symlink` is git-ignored too.
 
-There's a few special files in the hierarchy.
+## tools in `bin/`
 
-- **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
-  available everywhere.
-- **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
-  environment.
-- **topic/path.zsh**: Any file named `path.zsh` is loaded first and is
-  expected to setup `$PATH` or similar.
-- **topic/completion.zsh**: Any file named `completion.zsh` is loaded
-  last and is expected to setup autocomplete.
-- **topic/\*.symlink**: Any files ending in `*.symlink` get symlinked into
-  your `$HOME`. This is so you can keep all of those versioned in your dotfiles
-  but still keep those autoloaded files in your home directory. These get
-  symlinked in when you run `script/bootstrap`.
+- `dot`, `dot-install`: update and install (above).
+- `clip`: copy stdin to the clipboard with `pbcopy`, `wl-copy`, `xclip`, or an OSC 52 escape sequence when none
+  exist, so it works over ssh.
+- `e`: open a file or directory in `$EDITOR` (falls back to vim).
+- `search`: `ack -i` wrapper.
+- `git-*`: small git helpers (`git up`, `git undo`, `git wtf`, `git nuke`, ...).
+
+## tmux
+
+- The prefix is the backtick, `` ` ``. `` ` r `` reloads the config and `` ` C-r `` refreshes the environment
+  (such as `SSH_AUTH_SOCK`) in running shells.
+- New windows are named after their folder. `` ` , `` renames one by hand, `` ` & `` closes a window.
+- Clipboard copy uses OSC 52, so copies on a server end up in your local clipboard. In iTerm2, enable
+  *Settings → General → Selection → Applications in terminal may access clipboard*.
+- When you ssh into a machine, `tmux/tmux.remote.conf` is loaded automatically (status bar at the top).
+  Press `F12` to hand all keys to the inner session when tmux is nested, and `F12` again to take them back.
+- Plugins are managed by [tpm](https://github.com/tmux-plugins/tpm): `` ` I `` installs and `` ` alt-u `` removes
+  plugins no longer in the config.
 
 ## bugs
 
-I want this to work for everyone; that means when you clone it down it should
-work for you even though you may not have `rbenv` installed, for example. That
-said, I do use this as *my* dotfiles, so there's a good chance I may break
-something if I forget to make a check for a dependency.
-
-If you're brand-new to the project and run into any blockers, please
-[open an issue](https://github.com/joshuakarjala/dotfiles/issues) on this repository
-and I'd love to get it fixed for you!
-
-## thanks
-
-I forked [Ryan Bates](http://github.com/ryanb)' excellent
-[dotfiles](http://github.com/ryanb/dotfiles) for a couple years before the
-weight of my changes and tweaks inspired me to finally roll my own. But Ryan's
-dotfiles were an easy way to get into bash customization, and then to jump ship
-to zsh a bit later. A decent amount of the code in these dotfiles stem or are
-inspired from Ryan's original project.
+I want this to work for everyone, but it's my own setup, so things may break if I forget to check for a
+dependency. If you hit a blocker, please
+[open an issue](https://github.com/joshuakarjala/dotfiles/issues).
