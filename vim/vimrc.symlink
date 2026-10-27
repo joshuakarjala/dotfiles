@@ -48,6 +48,10 @@ set ttyfast
 let g:seoul256_background = 235
 
 set t_Co=256
+" true colour (tmux passes RGB through, see terminal-features in tmux.conf)
+if has('termguicolors') && $TERM !=# 'linux'
+  set termguicolors
+endif
 set background=dark
 silent! colorscheme seoul256 " plugins aren't installed yet on the very first run
 
@@ -72,6 +76,19 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set autoindent
+
+" startify: no random quote/cow header
+let g:startify_custom_header = []
+
+" save history (recent files) as we go, so killing the terminal doesn't lose it
+augroup dotfiles_history
+  autocmd!
+  if has('nvim')
+    autocmd BufReadPost,BufLeave,BufWritePost,FocusLost * silent! wshada
+  else
+    autocmd BufReadPost,BufLeave,BufWritePost,FocusLost * silent! wviminfo
+  endif
+augroup END
 
 augroup dotfiles_filetypes
   autocmd!
