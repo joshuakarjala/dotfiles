@@ -1,8 +1,28 @@
 set nocompatible
 set clipboard=unnamed
 
-if has('mac')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" On a headless Linux box (ssh) there is no clipboard tool, so copy through an OSC 52 escape
+" sequence (tmux has set-clipboard on, so it reaches the local clipboard). Paste just returns
+" the last yank. Written by hand so it works on old Neovim too (Ubuntu ships 0.7 - 0.9).
+if has('nvim') && !has('mac') && empty($DISPLAY) && empty($WAYLAND_DISPLAY)
+lua << EOF
+  local function copy(lines)
+    local b64 = vim.fn.system('base64 | tr -d "\\n"', table.concat(lines, '\n'))
+    local tty = io.open('/dev/tty', 'w')
+    if tty then
+      tty:write('\27]52;c;' .. b64 .. '\7')
+      tty:close()
+    end
+  end
+  local function paste()
+    return { vim.fn.split(vim.fn.getreg(''), '\n'), vim.fn.getregtype('') }
+  end
+  vim.g.clipboard = {
+    name = 'osc52',
+    copy = { ['+'] = copy, ['*'] = copy },
+    paste = { ['+'] = paste, ['*'] = paste },
+  }
+EOF
 endif
 
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -19,7 +39,6 @@ endif
 
 syntax on
 filetype indent plugin on
-set modeline
 set nomodeline
 
 set lazyredraw
@@ -31,7 +50,7 @@ let g:seoul256_background = 235
 
 set t_Co=256
 set background=dark
-colorscheme seoul256
+silent! colorscheme seoul256 " plugins aren't installed yet on the very first run
 
 " setup backups and swap and undo files
 set backup
@@ -55,8 +74,12 @@ set shiftwidth=2
 set softtabstop=2
 set autoindent
 
-autocmd FileType python setlocal ts=4 sw=4 expandtab
-autocmd FileType javascript setlocal ts=2 sw=2 expandtab
+augroup dotfiles_filetypes
+  autocmd!
+  autocmd FileType python setlocal ts=4 sw=4 expandtab
+  autocmd FileType javascript setlocal ts=2 sw=2 expandtab
+  autocmd FileType crontab setlocal nobackup nowritebackup
+augroup END
 
 "other
 " set mouse=nvi " enable mouse in normal mode
@@ -92,8 +115,6 @@ inoremap <s-tab> <c-n>
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
-  " Use ag in CtrlP
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
 " minimal silver search 'plugin'
@@ -126,14 +147,13 @@ endif
 let g:syntastic_javascript_checkers=['standard']
 let g:syntastic_javascript_standard_exec = 'semistandard'
 "autocmd bufwritepost *.js silent !semistandard % --format"
-command SSFormat silent! !semistandard --format %:p
+command! SSFormat silent! !semistandard --format %:p
 set autoread
 
 let g:jsx_ext_required=0
 
 " remap ;; to escape
 :imap ;; <Esc>
-:imap :: <Esc>
 
 " new line between () {}
 imap <C-c> <CR><Esc>O
@@ -146,5 +166,3 @@ set splitright
 " nnoremap <C-J> <C-W><C-J>
 " nnoremap <C-K> <C-W><C-K>
 " nnoremap <C-L> <C-W><C-L>
-
-autocmd filetype crontab setlocal nobackup nowritebackup

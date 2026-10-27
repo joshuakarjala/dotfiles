@@ -44,10 +44,11 @@ function prompt_josh_setup {
   # Load required functions.
   autoload -Uz add-zsh-hook
 
+  # a cloud marks machines the config passes an argument for (see zpreztorc)
   if [[ -n "$1" ]]; then
-    prefix='%B%F{cyan}☁%f%b '
+    _prompt_josh_prefix='%B%F{cyan}☁%f%b '
   else
-    prefix=''
+    _prompt_josh_prefix=''
   fi
 
   # Add hook for calling git-info before each command.
@@ -82,7 +83,7 @@ function prompt_josh_setup {
 
   # Define prompts.
 
-  PROMPT='%F{cyan}${_prompt_josh_pwd}%f%F{magenta}|%f${git_info:+${(e)git_info[prompt]}}%(!. %B%F{red}#%f%b.)${editor_info[keymap]} '
+  PROMPT='${_prompt_josh_prefix}%F{cyan}${_prompt_josh_pwd}%f%F{magenta}|%f${git_info:+${(e)git_info[prompt]}}%(!. %B%F{red}#%f%b.)${editor_info[keymap]} '
   RPROMPT='${editor_info[overwrite]}${VIM:+" %B%F{green}V%f%b"}${git_info[rprompt]} ${current_time}'
   SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]?'
 }

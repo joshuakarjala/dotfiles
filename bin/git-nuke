@@ -8,5 +8,17 @@
 #
 #   git nuke add-git-nuke
 
-git branch -D $1
-git push origin :$1
+if [ -z "$1" ]; then
+  echo "usage: git nuke <branch>" >&2
+  exit 1
+fi
+
+case "$1" in
+  main|master|develop|dev)
+    echo "refusing to nuke protected branch '$1'" >&2
+    exit 1
+    ;;
+esac
+
+git branch -D "$1"
+git push origin ":$1"

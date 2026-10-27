@@ -1,8 +1,16 @@
 #!/bin/sh
 #
-# Delete all local branches that have been merged into HEAD. Stolen from
+# Delete all local branches that have been merged into HEAD, except the current branch,
+# branches checked out in other worktrees, and main/master/develop/dev. Stolen from
 # our favorite @tekkub:
 #
 #   https://plus.google.com/115587336092124934674/posts/dXsagsvLakJ
 
-git branch -d `git branch --merged | grep -v '^*' | grep -v 'master' | tr -d '\n'`
+branches=$(git branch --merged | grep -Ev '^[*+]|^[[:space:]]*(main|master|develop|dev)$')
+
+if [ -z "$branches" ]; then
+  echo "No merged branches to delete."
+  exit 0
+fi
+
+echo "$branches" | xargs git branch -d
