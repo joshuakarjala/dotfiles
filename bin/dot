@@ -14,11 +14,17 @@ if test "$(uname)" = "Darwin"; then
   brew cleanup --prune=all
 else
   sudo apt-get update
-  sudo apt-get upgrade -y
+  sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
   sudo apt-get autoclean -y
 fi
 
 # gem update
 # gem clean
 # yarn global upgrade
-vim +PlugUpgrade +PlugUpdate +PlugClean +qa
+# headless Neovim can't get stuck on a "Press ENTER" prompt; plain Vim is the fallback
+if command -v nvim >/dev/null 2>&1; then
+  nvim --headless +PlugUpgrade '+PlugUpdate --sync' '+PlugClean!' +qa
+  echo
+else
+  vim +PlugUpgrade +PlugUpdate +PlugClean +qa
+fi

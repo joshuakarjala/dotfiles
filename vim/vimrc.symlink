@@ -1,4 +1,12 @@
 set nocompatible
+
+" Vim picks its encoding from the locale; without a UTF-8 locale (cron, minimal shells) the
+" multibyte listchars below fail with E474 and block on "Press ENTER". Neovim is always UTF-8.
+if !has('nvim')
+  set encoding=utf-8
+endif
+scriptencoding utf-8
+
 set clipboard=unnamed
 
 " On a headless Linux box (ssh) there is no clipboard tool, so copy through an OSC 52 escape
