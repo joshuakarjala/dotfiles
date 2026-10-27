@@ -122,7 +122,7 @@ zstyle ':prezto:module:ssh:load' identities 'id_joshua' 'founders' 'founders.pem
 #
 
 # Auto set the tab and window titles.
-zstyle ':prezto:module:terminal' auto-title 'yes'
+zstyle ':prezto:module:terminal' auto-title 'no'
 
 # Set the window title format.
 zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'

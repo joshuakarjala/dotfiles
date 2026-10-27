@@ -29,4 +29,4 @@ fi
 # Install homebrew packages
 
 brew install --cask suspicious-package qlvideo marta db-browser-for-sqlite ngrok
-brew install zsh tmux grc grep coreutils tree fzf ack universal-ctags fzy htop curl wget cmake boost thefuck neovim vim reattach-to-user-namespace restic rclone rsync libuv unibilium the_silver_searcher gnupg pyenv sshpass
+brew install zsh tmux grc grep coreutils tree fzf ack universal-ctags fzy htop curl wget cmake boost thefuck neovim vim restic rclone rsync libuv unibilium the_silver_searcher gnupg pyenv sshpass
