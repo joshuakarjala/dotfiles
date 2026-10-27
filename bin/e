@@ -14,8 +14,9 @@
 #   $ e /usr/local
 #   # => opens the specified directory in your editor
 
+# $EDITOR stays unquoted on purpose so values with arguments (e.g. "code -w") work
 if [ "$1" = "" ] ; then
-  exec $EDITOR .
+  exec ${EDITOR:-vim} .
 else
-  exec $EDITOR "$1"
+  exec ${EDITOR:-vim} "$1"
 fi

@@ -37,20 +37,21 @@ set -e
 
 echo ''
 
+# messages go through %b so their \n escapes still work, without being parsed as a format string
 info () {
-  printf "  [ \033[00;34m..\033[0m ] $1"
+  printf "  [ \033[00;34m..\033[0m ] %b" "$1"
 }
 
 user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+  printf "\r  [ \033[0;33m?\033[0m ] %b " "$1"
 }
 
 success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] %b\n" "$1"
 }
 
 fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] %b\n" "$1"
   echo ''
   exit 1
 }
@@ -71,7 +72,12 @@ setup_gitconfig () {
     user ' - What is your github author email?'
     read -e git_authoremail
 
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.symlink.example > git/gitconfig.symlink
+    # escape \ & and | so names/emails can't break the sed replacement
+    sed_escape () {
+      printf '%s' "$1" | sed -e 's/[\\&|]/\\&/g'
+    }
+
+    sed -e "s|AUTHORNAME|$(sed_escape "$git_authorname")|g" -e "s|AUTHOREMAIL|$(sed_escape "$git_authoremail")|g" -e "s|GIT_CREDENTIAL_HELPER|$git_credential|g" git/gitconfig.symlink.example > git/gitconfig.symlink
 
     success 'gitconfig'
   fi
@@ -167,16 +173,6 @@ install_dotfiles () {
 
 setup_gitconfig
 install_dotfiles
-
-# If we're on a Mac, let's install and setup homebrew.
-if [ "$(uname -s)" == "Darwin" ]; then
-  info "installing dependencies\n\n"
-  if source bin/dot > /tmp/dotfiles-dot 2>&1; then
-    success "dependencies installed"
-  else
-    fail "error installing dependencies"
-  fi
-fi
 
 echo ''
 echo ' All Linked!'
