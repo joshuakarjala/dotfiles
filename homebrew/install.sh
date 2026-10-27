@@ -9,19 +9,24 @@ if test ! "$(uname)" = "Darwin"; then
   exit 0
 fi
 
+load_brew () {
+  for b in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+    if [ -x "$b" ]; then
+      eval "$("$b" shellenv)"
+      return 0
+    fi
+  done
+  return 1
+}
+
 # Check for Homebrew
-if test ! $(which brew)
-then
+if ! command -v brew >/dev/null 2>&1 && ! load_brew; then
   echo "  Installing Homebrew for you."
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || exit 1
+  load_brew || exit 1
 fi
 
 # Install homebrew packages
 
 brew install --cask suspicious-package qlvideo marta db-browser-for-sqlite ngrok
-brew install zsh tmux grc grep coreutils tree fzf ack ctags fzy htop-osx curl wget cmake boost thefuck neovim vim reattach-to-user-namespace restic rclone rsync libuv unibilium the_silver_searcher gnupg pyenv sshpass
-
-# for catalina
-xattr -d -r com.apple.quarantine ~/Library/QuickLook
-
-exit 0
+brew install zsh tmux grc grep coreutils tree fzf ack universal-ctags fzy htop curl wget cmake boost thefuck neovim vim reattach-to-user-namespace restic rclone rsync libuv unibilium the_silver_searcher gnupg pyenv sshpass

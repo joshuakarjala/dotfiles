@@ -9,5 +9,18 @@ if test "$(uname)" = "Darwin"; then
 fi
 
 sudo apt-get update
-sudo apt-get install -y zsh tmux grc shfmt grep emacs coreutils tree ack universal-ctags htop curl wget cmake libboost-all-dev libpq-dev thefuck gpg imagemagick ghostscript git-flow direnv httpie libuv1-dev  libunibilium-dev libtermkey-dev libvterm-dev vim neovim python3 ruby fzy python3-setuptools ruby-dev python3-pip build-essential xdg-utils bzip2 libncurses-dev libffi-dev libsqlite3-dev lzma fzf rbenv
 
+# core packages: these exist on every supported Ubuntu release
+sudo apt-get install -y git locales zsh tmux grc grep coreutils tree ack universal-ctags htop curl wget cmake gpg \
+  vim neovim python3 python3-pip python3-setuptools ruby ruby-dev fzf silversearcher-ag \
+  build-essential xdg-utils bzip2 xz-utils \
+  libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libncurses-dev libffi-dev liblzma-dev tk-dev \
+  libboost-all-dev libpq-dev libuv1-dev || exit 1
+
+# optional packages: availability varies between Ubuntu releases, so don't let one missing package abort the rest
+for pkg in shfmt emacs thefuck imagemagick ghostscript git-flow direnv httpie fzy rbenv libunibilium-dev libtermkey-dev libvterm-dev; do
+  sudo apt-get install -y "$pkg" || echo "  Skipping unavailable package: $pkg"
+done
+
+# generate the locale the shell config asks for
+sudo locale-gen en_US.UTF-8

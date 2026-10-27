@@ -1,17 +1,19 @@
-# export NVM_DIR="$HOME/.config/nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+export NVM_DIR="$HOME/.config/nvm"
+NVM_VERSION="v0.40.3"
 
-# if test ! $(command -v nvm); then
-#   curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-# fi
+if [ ! -s "$NVM_DIR/nvm.sh" ]; then
+  mkdir -p "$NVM_DIR"
+  # PROFILE=/dev/null stops the installer appending to ~/.zshrc (which is a symlink into this repo)
+  curl -fsSL "https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh" | PROFILE=/dev/null bash
+fi
 
-# nvm install --lts
-# nvm cache clear
+# nvm is a shell function, so it has to be loaded into this shell before use
+\. "$NVM_DIR/nvm.sh" || exit 1
 
-# if test ! $(which yarn); then
-#   curl -o- -L https://yarnpkg.com/install.sh | bash
-# fi
+nvm install --lts
+nvm alias default 'lts/*'
+nvm cache clear
 
-# npm_default_packages="typescript eslint"
+npm_default_packages="yarn typescript eslint"
 
-# yarn global add $npm_default_packages
+npm install -g $npm_default_packages

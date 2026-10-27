@@ -4,9 +4,28 @@
 
 # first install zsh
 if test "$(uname -s)" = "Darwin"; then
+  # a fresh Mac has no Homebrew yet
+  if ! command -v brew >/dev/null 2>&1; then
+    for b in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+      if [ -x "$b" ]; then
+        eval "$("$b" shellenv)"
+        break
+      fi
+    done
+  fi
+  if ! command -v brew >/dev/null 2>&1; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || exit 1
+    for b in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+      if [ -x "$b" ]; then
+        eval "$("$b" shellenv)"
+        break
+      fi
+    done
+  fi
   brew install zsh
 else
-  sudo apt-get install -y zsh
+  sudo apt-get update
+  sudo apt-get install -y git zsh
 fi
 
 mkdir -p ~/.config
@@ -33,7 +52,7 @@ success () {
 fail () {
   printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
   echo ''
-  exit
+  exit 1
 }
 
 setup_gitconfig () {

@@ -1,6 +1,10 @@
-# some language stuff
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
+# some language stuff: use en_US.UTF-8 when the locale exists, otherwise C.UTF-8 so Linux doesn't warn
+if locale -a 2>/dev/null | grep -qi '^en_US\.utf-\{0,1\}8$'; then
+  export LC_ALL=en_US.UTF-8
+  export LANG=en_US.UTF-8
+else
+  export LANG=C.UTF-8
+fi
 
 ### Specific settings for OSX
 ###
@@ -17,8 +21,6 @@ fi
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
-
-export EDITOR="/usr/local/bin/nvim"
 
 # shortcut to this dotfiles path is $ZSIH
 export ZSH=$HOME/.dotfiles
@@ -47,6 +49,8 @@ fi
 # all of our zsh files
 typeset -U config_files
 config_files=($ZSH/**/*.zsh)
+# vim plugins ship their own .zsh files (e.g. fzf); don't source those
+config_files=(${config_files:#*/plugged/*})
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}

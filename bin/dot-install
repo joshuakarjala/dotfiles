@@ -4,16 +4,6 @@
 #
 # `dot-install` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest. + specific sub install
-export ZSH=$HOME/.dotfiles
-set -e
+export ZSH=${ZSH:-$HOME/.dotfiles}
 
-if test "$(uname)" = "Darwin"; then
-  $ZSH/homebrew/install.sh 2>&1
-else
-  $ZSH/apt-get/install.sh 2>&1
-fi
-
-cd "$(dirname $0)"/..
-
-# find the installers and run them iteratively
-find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+exec "$ZSH/script/install"

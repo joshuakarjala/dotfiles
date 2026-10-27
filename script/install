@@ -4,7 +4,8 @@
 
 set -e
 
-cd "$(dirname $0)"/..
+cd "$(dirname "$0")"/..
+export ZSH="${ZSH:-$PWD}"
 
 if test "$(uname -s)" = "Darwin"; then
   ./homebrew/install.sh
@@ -12,5 +13,15 @@ else
   ./apt-get/install.sh
 fi
 
-# find the installers and run them iteratively
-find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+# find the remaining installers and run them in a stable order,
+# reporting failures instead of silently swallowing them
+failed=""
+while IFS= read -r installer; do
+  echo "==> $installer"
+  sh "$installer" || { echo "!! $installer failed"; failed="$failed $installer"; }
+done < <(find . -name install.sh -not -path './homebrew/*' -not -path './apt-get/*' -not -path '*/plugged/*' -not -path './.git/*' | sort)
+
+if [ -n "$failed" ]; then
+  echo "Failed installers:$failed"
+  exit 1
+fi

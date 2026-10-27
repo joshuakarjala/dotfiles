@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# clip
+#
+# Copy stdin to the clipboard on macOS, Linux (Wayland/X11) or, failing that,
+# through an OSC 52 escape sequence so it works over ssh and inside tmux.
+#
+# USAGE:
+#
+#   $ echo hello | clip
+
+if command -v pbcopy >/dev/null 2>&1; then
+  exec pbcopy
+elif [ -n "$WAYLAND_DISPLAY" ] && command -v wl-copy >/dev/null 2>&1; then
+  exec wl-copy
+elif [ -n "$DISPLAY" ] && command -v xclip >/dev/null 2>&1; then
+  exec xclip -selection clipboard
+elif [ -n "$DISPLAY" ] && command -v xsel >/dev/null 2>&1; then
+  exec xsel --clipboard --input
+fi
+
+printf '\033]52;c;%s\a' "$(base64 | tr -d '\n')" > /dev/tty
