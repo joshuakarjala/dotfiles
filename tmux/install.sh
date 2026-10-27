@@ -21,3 +21,4 @@ mkdir -p ~/.tmux
 
 ln -sfn ~/.dotfiles/tmux/tmux.remote.conf ~/.tmux/tmux.remote.conf
 ln -sfn ~/.dotfiles/tmux/renew_env.sh ~/.tmux/renew_env.sh
+ln -sfn ~/.dotfiles/tmux/local_ip.sh ~/.tmux/local_ip.sh
