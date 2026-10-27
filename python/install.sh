@@ -19,7 +19,7 @@ pyenv global 3.14
 
 base_python_packages="gnureadline ipython args psutil requests pipx autopep8 flake8 pep8 pylint"
 
-# go through the pyenv python so system pip (externally managed on newer Ubuntu/Homebrew) is never used
+# go through the pyenv python so system pip (externally managed on newer Debian/Ubuntu/Homebrew) is never used
 python -m pip install --upgrade pip
 python -m pip install --upgrade $base_python_packages
 

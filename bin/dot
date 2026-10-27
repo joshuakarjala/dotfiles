@@ -11,12 +11,11 @@ if test "$(uname)" = "Darwin"; then
   brew update
   brew upgrade
   brew upgrade --cask
-  brew cleanup --prune 0
+  brew cleanup --prune=all
 else
   sudo apt-get update
   sudo apt-get upgrade -y
   sudo apt-get autoclean -y
-  sudo snap refresh
 fi
 
 # gem update

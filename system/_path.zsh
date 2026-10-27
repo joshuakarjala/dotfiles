@@ -15,7 +15,6 @@ if test "$(uname -s)" != "Darwin"; then
     export PATH="$gem_bin:$PATH"
   done
   unset gem_bin
-  export PATH="/snap/bin:$PATH"
 elif [ -n "$HOMEBREW_PREFIX" ] && [ -d "$HOMEBREW_PREFIX/opt/ruby/bin" ]; then
   export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
 fi

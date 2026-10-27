@@ -1,6 +1,6 @@
 # joshuakarjala does dotfiles
 
-My shell, editor, tmux and tooling setup for **macOS** and **Ubuntu**. Everything is organised by topic
+My shell, editor, tmux and tooling setup for **macOS**, **Debian** and **Ubuntu**. Everything is organised by topic
 (zsh, git, tmux, vim, python, node, ...), so each area lives in its own folder.
 
 Forked from [Zach Holman's dotfiles](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/), which
@@ -17,7 +17,7 @@ script/install     # installs packages and tools
 
 `script/bootstrap` asks for your git name and email, symlinks every `*.symlink` file into `$HOME`, and on a Mac
 applies my macOS preferences (`osx/set-defaults.sh`, which restarts Finder and the Dock).
-`script/install` runs the platform installer (`homebrew/install.sh` on macOS, `apt-get/install.sh` on Ubuntu)
+`script/install` runs the platform installer (`homebrew/install.sh` on macOS, `apt-get/install.sh` on Debian and Ubuntu)
 and then every topic's `install.sh` (docker, node, prezto, python, tmux, vim). It reports any installer that fails.
 
 When it's done:
@@ -28,7 +28,7 @@ When it's done:
 
 ## updating
 
-Run `dot` now and then. It updates Homebrew (macOS) or apt and snap (Ubuntu), then your vim plugins.
+Run `dot` now and then. It updates Homebrew (macOS) or apt (Debian and Ubuntu), then your vim plugins.
 `dot-install` re-runs the full install.
 
 ## how it's organised

@@ -3,7 +3,7 @@ set clipboard=unnamed
 
 " On a headless Linux box (ssh) there is no clipboard tool, so copy through an OSC 52 escape
 " sequence (tmux has set-clipboard on, so it reaches the local clipboard). Paste just returns
-" the last yank. Written by hand so it works on old Neovim too (Ubuntu ships 0.7 - 0.9).
+" the last yank. Written by hand so it works on old Neovim too (Debian and Ubuntu ship 0.6 - 0.9).
 if has('nvim') && !has('mac') && empty($DISPLAY) && empty($WAYLAND_DISPLAY)
 lua << EOF
   local function copy(lines)
