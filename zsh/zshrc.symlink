@@ -93,3 +93,10 @@ fi
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# >>> taloctl (added by 'taloctl install'; 'taloctl uninstall' removes it) >>>
+case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac
+export TALOCTL_PVE="root@madrid-server"
+_taloctl() { local -a c; c=(status logs restart update deploy branches config backup jobs updates snapshots storage notify new init self-update publish adopt list install uninstall proxy); (( CURRENT == 2 )) && compadd -a c; }
+(( $+functions[compdef] )) || { autoload -Uz compinit && compinit; }
+compdef _taloctl taloctl
+# <<< taloctl <<<
