@@ -45,7 +45,6 @@ set lazyredraw
 set ttyfast
 
 " color stuff
-let g:solarized_termcolors=256
 let g:seoul256_background = 235
 
 set t_Co=256
@@ -144,13 +143,11 @@ if !has('nvim')
   set ttymouse=xterm2
 endif
 
-let g:syntastic_javascript_checkers=['standard']
-let g:syntastic_javascript_standard_exec = 'semistandard'
+let g:ale_linters = {'javascript': ['standard']}
+let g:ale_javascript_standard_executable = 'semistandard'
 "autocmd bufwritepost *.js silent !semistandard % --format"
 command! SSFormat silent! !semistandard --format %:p
 set autoread
-
-let g:jsx_ext_required=0
 
 " remap ;; to escape
 :imap ;; <Esc>
