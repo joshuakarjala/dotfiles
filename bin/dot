@@ -18,6 +18,17 @@ else
   sudo apt-get autoclean -y
 fi
 
+# tmux plugins (tpm itself is pulled by tmux/install.sh)
+if [ -x "$HOME/.tmux/plugins/tpm/bin/update_plugins" ]; then
+  "$HOME/.tmux/plugins/tpm/bin/update_plugins" all
+fi
+
+# prezto and its submodules; --ff-only fails safely if the clone has local edits
+if [ -d "$HOME/.zprezto/.git" ]; then
+  git -C "$HOME/.zprezto" pull --ff-only &&
+    git -C "$HOME/.zprezto" submodule update --init --recursive
+fi
+
 # gem update
 # gem clean
 # yarn global upgrade
