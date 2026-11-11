@@ -4,7 +4,7 @@
 
 set -g default-terminal "tmux-256color"
 set -as terminal-features ',*:RGB'
-set -g history-limit 50000
+set -g history-limit 10000
 set -g buffer-limit 20
 set -sg escape-time 0
 set -g display-time 1500
@@ -39,10 +39,10 @@ bind C-e new-window -n 'tmux.conf' "sh -c '\${EDITOR:-vim} ~/.tmux.conf && tmux 
 bind r source-file ~/.tmux.conf \; display "Config reloaded"
 
 # new window and retain cwd
-bind c new-window -c "#{pane_current_path}"
-
-# Prompt to rename window right after it's created
-set-hook -g after-new-window "command-prompt -I \"#{b:pane_current_path}\" \"rename-window '%%'\""
+# Prompt to rename the window right after creating it with prefix+c. This is a key
+# binding, not an after-new-window hook: tmux-resurrect/continuum create windows during
+# restore, and a hook prompt there deadlocks the server ("Restoring..." forever).
+bind c new-window -c "#{pane_current_path}" \; command-prompt -I "#{b:pane_current_path}" "rename-window '%%'"
 
 # Quickly switch between common used windows and panes
 bind -n S-Up last-window
@@ -249,8 +249,11 @@ set -g @plugin 'samoshkin/tmux-plugin-sysstat'
 
 set -g @resurrect-strategy-nvim 'session'
 set -g @resurrect-capture-pane-contents 'on'
+# Relaunch these on restore (the default list only has vim, htop, etc.). "~claude" matches
+# the full command line, since the process name is the Claude Code version number.
+set -g @resurrect-processes '"~claude->claude --continue" "ssh madrid-server"'
 
-set -g @continuum-save-interval '15'
+set -g @continuum-save-interval '5'
 set -g @continuum-restore 'on'
 
 
