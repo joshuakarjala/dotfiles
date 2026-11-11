@@ -13,6 +13,15 @@ fi
 
 cd "$ZSH/prezto/themes" || exit 1
 
+# Remove links to themes that were deleted from this repo (e.g. garrett); a dangling
+# link in the prompt functions dir makes `prompt -l` / compinit complain.
+for l in "$PREZTO_HOME"/modules/prompt/functions/prompt_*_setup ; do
+  if [ -L "$l" ] && [ ! -e "$l" ]; then
+    rm -f "$l"
+    echo "Removed dangling theme link: $(basename "$l")"
+  fi
+done
+
 for f in * ; do
   if [ ! -f "$PREZTO_HOME/modules/prompt/functions/$f" ]; then
     ln -s "$ZSH/prezto/themes/$f" "$PREZTO_HOME/modules/prompt/functions"
